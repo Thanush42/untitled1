@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "800249476068",
+    "project_id": "keyboard-5b001",
+    "storage_bucket": "keyboard-5b001.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800249476068:android:b65e0c5a1f93c1e0fdcdf1",
+        "android_client_info": {
+          "package_name": "com.example.untitled1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800249476068-l0t5p6go02qeqf0nufrt6im88ahgelmi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4qxtzdK6wMqLdzBvQtJpNpyPZTD5hOiU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800249476068-l0t5p6go02qeqf0nufrt6im88ahgelmi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
