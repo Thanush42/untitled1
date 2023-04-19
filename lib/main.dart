@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:untitled1/excelpage.dart';
 import 'package:untitled1/firebase_options.dart';
+import 'package:untitled1/network.dart';
 import 'package:untitled1/signin.dart';
 
 void main() async {
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: true,
       home: SignInScreen(),
     );
   }
@@ -74,8 +76,13 @@ class _DemoState extends State<Demo> {
               ),
               TextButton(
                 child: Text("C"),
-                onPressed: () {
-                  addvaltolist("c");
+                onPressed: () async {
+                  showDialog(
+                      context: context,
+                      builder: (context) => CircularProgressIndicator());
+                  await Network.getprediction().then((value) => print(value));
+                  // Navigator.pop(context);
+                  //addvaltolist("C");
                 },
               ),
               TextButton(

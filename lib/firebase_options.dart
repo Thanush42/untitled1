@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '800249476068',
     projectId: 'keyboard-5b001',
     storageBucket: 'keyboard-5b001.appspot.com',
-    iosClientId: '800249476068-097hn825f1u7p3gtquluvjm0kkqbdu91.apps.googleusercontent.com',
+    iosClientId:
+        '800249476068-097hn825f1u7p3gtquluvjm0kkqbdu91.apps.googleusercontent.com',
     iosBundleId: 'com.example.untitled1',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '800249476068',
     projectId: 'keyboard-5b001',
     storageBucket: 'keyboard-5b001.appspot.com',
-    iosClientId: '800249476068-097hn825f1u7p3gtquluvjm0kkqbdu91.apps.googleusercontent.com',
+    iosClientId:
+        '800249476068-097hn825f1u7p3gtquluvjm0kkqbdu91.apps.googleusercontent.com',
     iosBundleId: 'com.example.untitled1',
   );
 }
