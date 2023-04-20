@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ void main() async {
   runApp(const MyApp());
 }
 
+String value = "";
 List<double> userAccelerometerValuesx = [];
 List<String> charlist = [];
 List<double> userAccelerometerValuesy = [];
@@ -57,8 +60,25 @@ class _DemoState extends State<Demo> {
       ),
       body: Column(
         children: [
+          Container(
+            height: 200,
+            padding: EdgeInsets.all(10),
+            child: TextField(
+              enabled: false,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(
+                    width: 0,
+                    style: BorderStyle.solid,
+                  ),
+                ),
+              ),
+              controller: TextEditingController(text: value),
+            ),
+          ),
           SizedBox(
-            height: 400,
+            height: 200,
           ),
           Row(
             children: [
@@ -77,12 +97,7 @@ class _DemoState extends State<Demo> {
               TextButton(
                 child: Text("C"),
                 onPressed: () async {
-                  showDialog(
-                      context: context,
-                      builder: (context) => CircularProgressIndicator());
-                  await Network.getprediction().then((value) => print(value));
-                  // Navigator.pop(context);
-                  //addvaltolist("C");
+                  addvaltolist("C");
                 },
               ),
               TextButton(
@@ -238,15 +253,16 @@ class _DemoState extends State<Demo> {
           Row(
             children: [
               TextButton(
-                child: Text("Z"),
-                onPressed: () {
-                  addvaltolist("Z");
+                child: Icon(Icons.check),
+                onPressed: () async {
+                  await enterbutton();
+                  //addvaltolist("Z");
                 },
               ),
               TextButton(
-                child: Text("#"),
+                child: Text("Z"),
                 onPressed: () {
-                  addvaltolist("#");
+                  addvaltolist("Z");
                 },
               ),
               TextButton(
@@ -262,9 +278,9 @@ class _DemoState extends State<Demo> {
                 },
               ),
               TextButton(
-                child: Text("@"),
+                child: Icon(Icons.backspace_outlined),
                 onPressed: () {
-                  addvaltolist("@");
+                  addvaltolist("back");
                 },
               ),
             ],
@@ -275,6 +291,20 @@ class _DemoState extends State<Demo> {
   }
 
   addvaltolist(String cha) {
+    switch (cha) {
+      case "back":
+        try {
+          value = value.substring(0, value.length - 1);
+        } catch (e) {
+          print(e);
+        }
+        break;
+      default:
+        value += cha;
+    }
+    //value += cha;
+    print(value);
+    setState(() {});
     charlist.add(cha);
     userAccelerometerEvents.listen(
       (UserAccelerometerEvent event) async {
@@ -288,5 +318,38 @@ class _DemoState extends State<Demo> {
     // print(userAccelerometerValuesx);
     // createexcel(cha, userAccelerometerValuesx, userAccelerometerValuesy,
     //     userAccelerometerValuesz);
+  }
+
+  var result = "";
+  enterbutton() async {
+    if (value.isNotEmpty) {
+      showDialog(
+          context: context,
+          builder: (context) => SizedBox(
+              height: 10, width: 10, child: CircularProgressIndicator()));
+      for (int i = 0; i < charlist.length; i++) {
+        await Network.getprediction(charlist, userAccelerometerValuesx,
+                userAccelerometerValuesy, userAccelerometerValuesz)
+            .then((value) => result = value);
+      }
+      value = "";
+      setState(() {});
+      Navigator.pop(context);
+      var snackBar = SnackBar(
+        content: Text(result),
+      );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      var snackBar = SnackBar(
+        content: Text("Enter any text"),
+      );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }
